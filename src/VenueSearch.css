@@ -1,0 +1,349 @@
+/* Venue Search Component Styles */
+.venue-search {
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.search-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.search-header h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(45deg, #ff6b6b, #feca57);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.search-header p {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  margin-bottom: 0;
+}
+
+/* Search Filters */
+.search-filters {
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.filter-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.filter-row:last-child {
+  margin-bottom: 0;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-group label {
+  font-weight: 600;
+  color: #feca57;
+  font-size: 0.95rem;
+}
+
+.filter-group select,
+.filter-group input[type="text"] {
+  padding: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.filter-group select:focus,
+.filter-group input[type="text"]:focus {
+  outline: none;
+  border-color: #feca57;
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 0 2px rgba(254, 202, 87, 0.2);
+}
+
+.filter-group select:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.filter-group option {
+  background: #764ba2;
+  color: white;
+}
+
+.filter-group input[type="text"]::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.checkbox-group {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  font-weight: normal;
+  color: white;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 1.2rem;
+  height: 1.2rem;
+  cursor: pointer;
+}
+
+/* Results Summary */
+.results-summary {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+}
+
+.results-summary h3 {
+  font-size: 1.4rem;
+  margin: 0;
+  color: #feca57;
+}
+
+.filter-tag {
+  background: rgba(254, 202, 87, 0.2);
+  border: 1px solid rgba(254, 202, 87, 0.4);
+  border-radius: 20px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.85rem;
+  color: #feca57;
+  font-weight: 500;
+}
+
+/* Venues Grid */
+.venues-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 2rem;
+}
+
+.venue-card {
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.venue-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.venue-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.venue-header h3 {
+  font-size: 1.3rem;
+  margin: 0;
+  color: white;
+  flex-grow: 1;
+  margin-right: 1rem;
+}
+
+.venue-rating {
+  background: rgba(254, 202, 87, 0.2);
+  border: 1px solid rgba(254, 202, 87, 0.4);
+  border-radius: 15px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #feca57;
+  white-space: nowrap;
+}
+
+.venue-info {
+  margin-bottom: 1rem;
+}
+
+.venue-info p {
+  margin: 0.3rem 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.venue-address {
+  font-weight: 500;
+}
+
+.venue-website a {
+  color: #48dbfb;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.venue-website a:hover {
+  color: #0abde3;
+  text-decoration: underline;
+}
+
+.venue-description {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.venue-description p {
+  margin: 0;
+  font-style: italic;
+  opacity: 0.9;
+  line-height: 1.5;
+}
+
+/* Open Mic Info */
+.open-mic-info {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1rem;
+}
+
+.open-mic-details h4 {
+  margin: 0 0 0.8rem 0;
+  color: #feca57;
+  font-size: 1.1rem;
+}
+
+.open-mic-details p {
+  margin: 0.4rem 0;
+  font-size: 0.9rem;
+}
+
+.open-mic-details strong {
+  color: #48dbfb;
+  font-weight: 600;
+}
+
+.no-open-mic {
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.3);
+  border-radius: 10px;
+}
+
+.no-open-mic p {
+  margin: 0.3rem 0;
+}
+
+.no-open-mic .reason {
+  font-style: italic;
+  opacity: 0.8;
+  font-size: 0.85rem;
+}
+
+/* No Results */
+.no-results {
+  text-align: center;
+  padding: 3rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  margin-top: 2rem;
+}
+
+.no-results h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #feca57;
+}
+
+.no-results p {
+  opacity: 0.8;
+  font-size: 1.1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .venues-grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .venue-search {
+    padding: 1rem;
+  }
+
+  .search-header h2 {
+    font-size: 2rem;
+  }
+
+  .filter-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .venues-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .venue-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .venue-header h3 {
+    margin-right: 0;
+  }
+
+  .results-summary {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-filters {
+    padding: 1.5rem;
+  }
+
+  .venue-card {
+    padding: 1rem;
+  }
+
+  .search-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .filter-group select,
+  .filter-group input[type="text"] {
+    padding: 0.7rem;
+  }
+}
