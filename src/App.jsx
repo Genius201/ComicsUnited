@@ -15,6 +15,7 @@ function App() {
   const [error, setError] = useState(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const [betaUser, setBetaUser] = useState(false);
+  const [showAuth, setShowAuth] = useState(false);
   
   // State for data from API
   const [comedians, setComedians] = useState([]);
@@ -139,6 +140,7 @@ function App() {
     localStorage.setItem('comicsUnited_user', JSON.stringify(userData));
     setBetaUser(true);
     localStorage.setItem('betaUser', 'true');
+    setShowAuth(false); // Close auth modal after successful login
   };
 
   const handleLogout = () => {
@@ -163,9 +165,9 @@ function App() {
     closeModal();
   };
 
-  // Show landing page if user is not logged in
-  if (!user) {
-    return <LandingPage onLogin={handleLogin} />;
+  // Show auth modal if requested
+  if (showAuth) {
+    return <Auth onLogin={handleLogin} />;
   }
 
   return (
@@ -191,15 +193,36 @@ function App() {
             <p>Professional Networking Platform for Comedians</p>
           </div>
           <div className="auth-section">
-            <div className="user-info">
-              <span className="welcome-text">Welcome back,</span>
-              <span className="user-name">{user.stage_name || user.fullName}!</span>
-            </div>
-            <div className="auth-buttons">
-              <button onClick={handleLogout} className="logout-btn">
-                Sign Out
-              </button>
-            </div>
+            {user ? (
+              // Logged in user info
+              <>
+                <div className="user-info">
+                  <span className="welcome-text">Welcome back,</span>
+                  <span className="user-name">{user.stage_name || user.fullName}!</span>
+                </div>
+                <div className="auth-buttons">
+                  <button onClick={handleLogout} className="logout-btn">
+                    Sign Out
+                  </button>
+                </div>
+              </>
+            ) : (
+              // Not logged in - show auth buttons
+              <div className="auth-buttons">
+                <button 
+                  onClick={() => setShowAuth(true)} 
+                  className="signup-btn"
+                >
+                  Sign Up
+                </button>
+                <button 
+                  onClick={() => setShowAuth(true)} 
+                  className="signin-btn"
+                >
+                  Sign In
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </header>
@@ -237,7 +260,43 @@ function App() {
         {loading && <div className="loading">Loading...</div>}
         {error && <div className="error">{error}</div>}
 
-        {selectedTab === 'profiles' && (
+        {!user ? (
+          // Show welcome content for non-logged-in users
+          <div className="welcome-section">
+            <div className="welcome-content">
+              <h2>🎭 Welcome to Comics United</h2>
+              <p>The premier professional networking platform for comedians.</p>
+              
+              <div className="feature-highlights">
+                <div className="feature-item">
+                  <h3>🎤 Connect with Comedians</h3>
+                  <p>Network with verified comedy professionals nationwide</p>
+                </div>
+                <div className="feature-item">
+                  <h3>🏛️ Find Venues</h3>
+                  <p>Discover open mic nights and comedy venues in every city</p>
+                </div>
+                <div className="feature-item">
+                  <h3>👥 Join Groups</h3>
+                  <p>Collaborate with writing groups and performance troupes</p>
+                </div>
+              </div>
+              
+              <div className="cta-section">
+                <p>Ready to grow your comedy career?</p>
+                <button 
+                  onClick={() => setShowAuth(true)} 
+                  className="cta-button"
+                >
+                  Get Started Free
+                </button>
+              </div>
+            </div>
+          </div>
+        ) : (
+          // Show regular content for logged-in users
+          <>
+            {selectedTab === 'profiles' && (
           <div className="profiles-section">
             <h2>🎤 Comedian Profiles</h2>
             <div className="profiles-grid">
@@ -302,6 +361,8 @@ function App() {
               <p>Click on any comedian profile to send them a message!</p>
             </div>
           </div>
+        )}
+          </>
         )}
       </main>
 
