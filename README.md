@@ -1,6 +1,6 @@
 # 🎭 Comics United
 
-**Professional Networking Platform for Comedians**
+## Professional Networking Platform for Comedians
 
 A modern web application connecting comedians professionally with comprehensive venue databases, collaboration features, and networking tools.
 
@@ -10,25 +10,29 @@ A modern web application connecting comedians professionally with comprehensive 
 
 ## ✨ Features
 
-### 🏛️ **Comprehensive Venue Database**
+### 🏛️ Comprehensive Venue Database
+
 - **31+ Premium Comedy Venues** across major markets
-- **6 States Covered**: NY, CA, IL, TX, FL, PA  
+- **6 States Covered**: NY, CA, IL, TX, FL, PA
 - **Major Cities**: NYC, LA, Chicago, Austin, Miami, Philadelphia
 - **Detailed Open Mic Information**: Times, costs, signup requirements, contact details
 
-### 🎤 **Comedian Networking**
+### 🎤 Comedian Networking
+
 - Professional comedian profiles with verification system
 - Direct messaging between comedians
 - Rating and review system
 - Specialty and experience level filtering
 
-### 🔍 **Advanced Search & Filtering**
+### 🔍 Advanced Search & Filtering
+
 - State/city hierarchical browsing
 - Venue type filtering (Comedy Club, Bar, Theater, etc.)
 - Open mic availability toggle
 - Text search across venues and descriptions
 
-### 🎨 **Modern UI/UX**
+### 🎨 Modern UI/UX
+
 - Glass-morphism design with backdrop blur effects
 - Responsive design for all devices
 - Professional authentication system
@@ -45,7 +49,7 @@ A modern web application connecting comedians professionally with comprehensive 
 
 ## 📁 Project Structure
 
-```
+```text
 src/
 ├── App.jsx                 # Main application component
 ├── App.css                 # Global app styles
@@ -71,34 +75,40 @@ package.json              # Dependencies and scripts
 ## 🚦 Getting Started
 
 ### Prerequisites
+
 - Node.js (v16 or higher)
 - npm or yarn
 
 ### Installation
 
 1. **Clone the repository**
-```bash
-git clone https://github.com/YOUR_USERNAME/comics-united.git
-cd comics-united
-```
+
+   ```bash
+   git clone https://github.com/Genius201/comicsUnited.git
+   cd comicsUnited
+   ```
 
 2. **Install dependencies**
-```bash
-npm install
-```
+
+   ```bash
+   npm install
+   ```
 
 3. **Start development server**
-```bash
-npm run dev
-```
+
+   ```bash
+   npm run dev
+   ```
 
 4. **Start backend server** (in another terminal)
-```bash
-npm run server
-```
+
+   ```bash
+   npm run server
+   ```
 
 5. **Open your browser**
-Navigate to `http://localhost:5173`
+
+   Navigate to `http://localhost:5173`
 
 ## 📜 Available Scripts
 
@@ -111,6 +121,7 @@ Navigate to `http://localhost:5173`
 ## 🌐 Deployment
 
 ### Netlify (Current)
+
 The app is configured for automatic deployment on Netlify:
 
 1. **Build Command**: `npm run build`
@@ -118,6 +129,7 @@ The app is configured for automatic deployment on Netlify:
 3. **Environment**: Production ready with SPA routing
 
 ### Manual Deployment
+
 ```bash
 npm run build
 npm run deploy
@@ -125,23 +137,29 @@ npm run deploy
 
 ## 🎯 Key Components
 
-### **VenueSearch.jsx**
+### VenueSearch.jsx
+
 Comprehensive venue database with:
+
 - State/city filtering
-- Venue type selection  
+- Venue type selection
 - Open mic details display
 - Search functionality
 - 31+ venues with detailed information
 
-### **Auth.jsx** 
+### Auth.jsx
+
 Professional authentication system with:
+
 - Sign up and sign in forms
 - User profile creation
 - Stage name and bio management
 - Experience level selection
 
-### **LandingPage.jsx**
+### LandingPage.jsx
+
 Professional landing page featuring:
+
 - Prominent call-to-action buttons
 - Feature highlights
 - Demo credentials display
@@ -149,22 +167,28 @@ Professional landing page featuring:
 
 ## 📊 Venue Database Coverage
 
-### **New York**
+### New York
+
 - Comedy Cellar, Gotham Comedy Club, Caroline's on Broadway, etc.
 
-### **California**  
+### California
+
 - The Comedy Store, Laugh Factory, Punchline SF, etc.
 
-### **Illinois**
+### Illinois
+
 - Second City, Zanies Comedy Club, etc.
 
-### **Texas**
+### Texas
+
 - Cap City Comedy Club, Addison Improv, etc.
 
-### **Florida**
+### Florida
+
 - Miami Improv, Orlando Improv, etc.
 
-### **Pennsylvania**
+### Pennsylvania
+
 - Helium Comedy Club, Punchline Philly, etc.
 
 ## 🔄 Future Enhancements
@@ -190,8 +214,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👨‍💻 Author
 
-**Gene Shaffer**
-- Email: geneshaffer44@gmail.com
+### Gene Shaffer
+
+- Email: <geneshaffer44@gmail.com>
 - Project: Comics United Beta
 
 ## 🙏 Acknowledgments
@@ -203,4 +228,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**🎭 Comics United - Connecting Comedians Professionally**
+### Comics United - Connecting Comedians Professionally
