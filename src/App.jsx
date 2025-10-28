@@ -5,6 +5,7 @@ import LandingPage from './LandingPage';
 import Auth from './Auth';
 import VenueSearch from './VenueSearch';
 import FeedbackModal from './FeedbackModal';
+import ProfilesPage from './ProfilesPage';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -297,35 +298,12 @@ function App() {
           // Show regular content for logged-in users
           <>
             {selectedTab === 'profiles' && (
-          <div className="profiles-section">
-            <h2>🎤 Comedian Profiles</h2>
-            <div className="profiles-grid">
-              {comedians.map(comedian => (
-                <div 
-                  key={comedian.id} 
-                  className="profile-card"
-                  onClick={() => handleComedianClick(comedian)}
-                >
-                  <div className="profile-header">
-                    <h3>{comedian.stage_name}</h3>
-                    <div className="verification">
-                      {comedian.verified ? '✅ Verified' : '⏳ Pending'}
-                    </div>
-                  </div>
-                  <div className="profile-info">
-                    <p><strong>Specialty:</strong> {comedian.specialty}</p>
-                    <p><strong>Experience:</strong> {comedian.experience}</p>
-                    <p><strong>Location:</strong> {comedian.location}</p>
-                    <p><strong>Rating:</strong> ⭐ {comedian.rating}</p>
-                  </div>
-                  <div className="profile-bio">
-                    <p>{comedian.bio}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+              <ProfilesPage 
+                user={user}
+                comedians={comedians}
+                onUserUpdate={setUser}
+              />
+            )}
 
         {selectedTab === 'venues' && (
           <VenueSearch />

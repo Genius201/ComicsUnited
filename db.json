@@ -1,1 +1,46 @@
-{"users":[],"feedback":[],"comedians":[],"venues":[],"groups":[],"messages":[],"reviews":[]} 
+{
+  "users": [],
+  "feedback": [],
+  "comedians": [
+    {
+      "id": 1,
+      "fullName": "Mike Johnson",
+      "stage_name": "Mic Drop Mike",
+      "email": "mike@example.com",
+      "comedy_specialty": ["Stand-up Comedy", "Roast Comedy"],
+      "experience_level": "Professional (10+ years)",
+      "location": "New York, NY",
+      "bio": "Professional stand-up comedian with over 10 years of experience. Known for sharp wit and crowd work.",
+      "verified": true,
+      "rating": 4.8
+    },
+    {
+      "id": 2,
+      "fullName": "Sarah Williams",
+      "stage_name": "Funny Sarah",
+      "email": "sarah@example.com", 
+      "comedy_specialty": ["Improv", "Sketch Comedy", "Musical Comedy"],
+      "experience_level": "Advanced (5-9 years)",
+      "location": "Los Angeles, CA",
+      "bio": "Multi-talented comedian specializing in improv, sketch, and musical comedy. Regular at Second City.",
+      "verified": true,
+      "rating": 4.6
+    },
+    {
+      "id": 3,
+      "fullName": "Alex Chen",
+      "stage_name": "The Clean Machine",
+      "email": "alex@example.com",
+      "comedy_specialty": ["Clean Comedy", "Storytelling"],
+      "experience_level": "Intermediate (2-4 years)",
+      "location": "Chicago, IL", 
+      "bio": "Family-friendly comedian who brings stories to life with humor and heart.",
+      "verified": false,
+      "rating": 4.2
+    }
+  ],
+  "venues": [],
+  "groups": [],
+  "messages": [],
+  "reviews": []
+} 
