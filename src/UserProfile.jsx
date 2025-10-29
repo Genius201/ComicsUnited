@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { apiService } from './services/api.js';
+import SecurityUtils from './utils/security.js';
 
 const UserProfile = ({ user, onUserUpdate }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -73,19 +74,38 @@ const UserProfile = ({ user, onUserUpdate }) => {
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     
+    // Sanitize input value for security
+    const sanitizedValue = type === 'checkbox' ? checked : SecurityUtils.sanitizeInput(value);
+    
+    // Additional validation based on field type
+    if (name === 'email' && value && !SecurityUtils.validateEmail(value)) {
+      console.warn('Invalid email format');
+      return;
+    }
+    
+    if (name === 'phone' && value && !SecurityUtils.validatePhone(value)) {
+      console.warn('Invalid phone format');
+      return;
+    }
+    
+    if (name === 'website' && value && !SecurityUtils.validateURL(value)) {
+      console.warn('Invalid URL format');
+      return;
+    }
+    
     if (name.includes('.')) {
       const [parent, child] = name.split('.');
       setFormData(prev => ({
         ...prev,
         [parent]: {
           ...prev[parent],
-          [child]: type === 'checkbox' ? checked : value
+          [child]: type === 'checkbox' ? checked : sanitizedValue
         }
       }));
     } else {
       setFormData(prev => ({
         ...prev,
-        [name]: type === 'checkbox' ? checked : value
+        [name]: type === 'checkbox' ? checked : sanitizedValue
       }));
     }
   };
