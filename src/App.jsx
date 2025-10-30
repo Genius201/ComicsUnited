@@ -20,6 +20,11 @@ function App() {
   const [betaUser, setBetaUser] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   
+  // Dropdown states
+  const [showVenuesDropdown, setShowVenuesDropdown] = useState(false);
+  const [showGroupsDropdown, setShowGroupsDropdown] = useState(false);
+  const [showMessagesDropdown, setShowMessagesDropdown] = useState(false);
+  
   // State for data from API
   const [comedians, setComedians] = useState([]);
   const [venues, setVenues] = useState([]);
@@ -168,6 +173,104 @@ function App() {
     closeModal();
   };
 
+  // Venue dropdown handlers
+  const handleVenuesClick = () => {
+    setShowVenuesDropdown(!showVenuesDropdown);
+  };
+
+  const handleDropdownOption = (option) => {
+    setShowVenuesDropdown(false);
+    switch (option) {
+      case 'search':
+        setSelectedTab('venues');
+        break;
+      case 'availability':
+        alert('Post Availability: This feature will let you post your availability for last-minute fill-ins!');
+        break;
+      case 'openmic':
+        alert('Sign up for Open Mics: Find and register for open mic nights near you!');
+        break;
+      case 'plan-week':
+        alert('Plan a Week of Open Mics: Create your weekly open mic schedule!');
+        break;
+      case 'city-tour':
+        alert('Plan City Tour: Organize a comedy tour with your group across multiple cities!');
+        break;
+      default:
+        setSelectedTab('venues');
+    }
+  };
+
+  // Groups dropdown handlers
+  const handleGroupsClick = () => {
+    setShowGroupsDropdown(!showGroupsDropdown);
+  };
+
+  const handleGroupsDropdownOption = (option) => {
+    setShowGroupsDropdown(false);
+    switch (option) {
+      case 'browse':
+        setSelectedTab('groups');
+        break;
+      case 'join':
+        alert('Join Group Chat: Browse available group chats and join conversations with fellow comedians!');
+        break;
+      case 'create':
+        alert('Start Group Chat: Create an invite-only group chat for up to 10 comedians. Perfect for organizing shows, sharing material, or building comedy connections!');
+        break;
+      case 'podcast':
+        alert('Schedule a Podcast: Coordinate with your comedy group to record podcasts, comedy sketches, or collaborative content!');
+        break;
+      case 'braindrain':
+        alert('Brain Drain Session: Meet with fellow comedians to workshop new material, share jokes, and collaborate on fresh comedy content!');
+        break;
+      default:
+        setSelectedTab('groups');
+    }
+  };
+
+  // Messages dropdown handlers
+  const handleMessagesClick = () => {
+    setShowMessagesDropdown(!showMessagesDropdown);
+  };
+
+  const handleMessagesDropdownOption = (option) => {
+    setShowMessagesDropdown(false);
+    switch (option) {
+      case 'browse':
+        setSelectedTab('messages');
+        break;
+      case 'community-wall':
+        alert('Community Wall: Leave messages, announcements, and updates for the entire comedy community to see!');
+        break;
+      case 'message-venue':
+        alert('Message Venue: Contact venue managers and owners directly to discuss booking opportunities, show details, or networking!');
+        break;
+      default:
+        setSelectedTab('messages');
+    }
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showVenuesDropdown && !event.target.closest('.venues-dropdown-container')) {
+        setShowVenuesDropdown(false);
+      }
+      if (showGroupsDropdown && !event.target.closest('.groups-dropdown-container')) {
+        setShowGroupsDropdown(false);
+      }
+      if (showMessagesDropdown && !event.target.closest('.messages-dropdown-container')) {
+        setShowMessagesDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showVenuesDropdown, showGroupsDropdown, showMessagesDropdown]);
+
   // Show auth modal if requested
   if (showAuth) {
     return <Auth onLogin={handleLogin} />;
@@ -238,24 +341,81 @@ function App() {
         >
           🎤 Comedian Profiles
         </button>
-        <button 
-          className={selectedTab === 'venues' ? 'active' : ''} 
-          onClick={() => setSelectedTab('venues')}
-        >
-          🏛️ Venues
-        </button>
-        <button 
-          className={selectedTab === 'groups' ? 'active' : ''} 
-          onClick={() => setSelectedTab('groups')}
-        >
-          👥 Groups
-        </button>
-        <button 
-          className={selectedTab === 'messages' ? 'active' : ''} 
-          onClick={() => setSelectedTab('messages')}
-        >
-          💬 Messages
-        </button>
+        <div className="venues-dropdown-container">
+          <button 
+            className={selectedTab === 'venues' || showVenuesDropdown ? 'active' : ''} 
+            onClick={handleVenuesClick}
+          >
+            🏛️ Venues {showVenuesDropdown ? '▲' : '▼'}
+          </button>
+          {showVenuesDropdown && (
+            <div className="dropdown-menu">
+              <button onClick={() => handleDropdownOption('search')} className="dropdown-item">
+                🔍 Search Venues
+              </button>
+              <button onClick={() => handleDropdownOption('availability')} className="dropdown-item">
+                📅 Post Availability for Fill-ins
+              </button>
+              <button onClick={() => handleDropdownOption('openmic')} className="dropdown-item">
+                🎤 Sign up for Open Mics
+              </button>
+              <button onClick={() => handleDropdownOption('plan-week')} className="dropdown-item">
+                📋 Plan a Week of Open Mics
+              </button>
+              <button onClick={() => handleDropdownOption('city-tour')} className="dropdown-item">
+                🚌 Plan City Tour with Group
+              </button>
+            </div>
+          )}
+        </div>
+        <div className="groups-dropdown-container">
+          <button 
+            className={selectedTab === 'groups' || showGroupsDropdown ? 'active' : ''} 
+            onClick={handleGroupsClick}
+          >
+            👥 Groups {showGroupsDropdown ? '▲' : '▼'}
+          </button>
+          {showGroupsDropdown && (
+            <div className="dropdown-menu">
+              <button onClick={() => handleGroupsDropdownOption('browse')} className="dropdown-item">
+                👁️ Browse Groups
+              </button>
+              <button onClick={() => handleGroupsDropdownOption('join')} className="dropdown-item">
+                🤝 Join Group Chat
+              </button>
+              <button onClick={() => handleGroupsDropdownOption('create')} className="dropdown-item">
+                ✨ Start Group Chat (Invite Only)
+              </button>
+              <button onClick={() => handleGroupsDropdownOption('podcast')} className="dropdown-item">
+                🎙️ Schedule a Podcast
+              </button>
+              <button onClick={() => handleGroupsDropdownOption('braindrain')} className="dropdown-item">
+                🧠 Meet for Brain Drain Session
+              </button>
+            </div>
+          )}
+        </div>
+        <div className="messages-dropdown-container">
+          <button 
+            className={selectedTab === 'messages' || showMessagesDropdown ? 'active' : ''} 
+            onClick={handleMessagesClick}
+          >
+            💬 Messages {showMessagesDropdown ? '▲' : '▼'}
+          </button>
+          {showMessagesDropdown && (
+            <div className="dropdown-menu">
+              <button onClick={() => handleMessagesDropdownOption('browse')} className="dropdown-item">
+                📬 View Messages
+              </button>
+              <button onClick={() => handleMessagesDropdownOption('community-wall')} className="dropdown-item">
+                📋 Community Wall
+              </button>
+              <button onClick={() => handleMessagesDropdownOption('message-venue')} className="dropdown-item">
+                🏛️ Message Venue Manager
+              </button>
+            </div>
+          )}
+        </div>
       </nav>
 
       {/* Main Content */}

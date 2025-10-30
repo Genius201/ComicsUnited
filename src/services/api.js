@@ -73,80 +73,110 @@ function sanitizeRequestData(data) {
 
 export const apiService = {
   // Users
-  async getUsers() {
-    try {
-      const response = await apiClient.get('/users');
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching users:', error);
-      throw error;
-    }
-  },
+  users: {
+    async getAll() {
+      try {
+        const response = await apiClient.get('/users');
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        throw error;
+      }
+    },
 
-  async createUser(userData) {
-    try {
-      const response = await apiClient.post('/users', userData);
-      return response.data;
-    } catch (error) {
-      console.error('Error creating user:', error);
-      throw error;
+    async create(userData) {
+      try {
+        const response = await apiClient.post('/users', userData);
+        return response.data;
+      } catch (error) {
+        console.error('Error creating user:', error);
+        throw error;
+      }
     }
   },
 
   // Comedians
-  async getComedians() {
-    try {
-      const response = await apiClient.get('/comedians');
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching comedians:', error);
-      throw error;
-    }
-  },
+  comedians: {
+    async getAll() {
+      try {
+        const response = await apiClient.get('/comedians');
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching comedians:', error);
+        throw error;
+      }
+    },
 
-  async getComedianById(id) {
-    try {
-      const response = await apiClient.get(`/comedians/${id}`);
-      return response.data;
-    } catch (error) {
-      console.error(`Error fetching comedian with id ${id}:`, error);
-      throw error;
+    async getById(id) {
+      try {
+        const response = await apiClient.get(`/comedians/${id}`);
+        return response.data;
+      } catch (error) {
+        console.error(`Error fetching comedian with id ${id}:`, error);
+        throw error;
+      }
     }
   },
 
   // Venues
-  async getVenues() {
-    try {
-      const response = await apiClient.get('/venues');
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching venues:', error);
-      throw error;
+  venues: {
+    async getAll() {
+      try {
+        const response = await apiClient.get('/venues');
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching venues:', error);
+        throw error;
+      }
+    },
+
+    async getById(id) {
+      try {
+        const response = await apiClient.get(`/venues/${id}`);
+        return response.data;
+      } catch (error) {
+        console.error(`Error fetching venue with id ${id}:`, error);
+        throw error;
+      }
+    },
+
+    async getByState(state) {
+      try {
+        const response = await apiClient.get(`/venues?state=${state}`);
+        return response.data;
+      } catch (error) {
+        console.error(`Error fetching venues for state ${state}:`, error);
+        throw error;
+      }
     }
   },
 
   // Groups
-  async getGroups() {
-    try {
-      const response = await apiClient.get('/groups');
-      return response.data;
-    } catch (error) {
-      console.error('Error fetching groups:', error);
-      throw error;
+  groups: {
+    async getAll() {
+      try {
+        const response = await apiClient.get('/groups');
+        return response.data;
+      } catch (error) {
+        console.error('Error fetching groups:', error);
+        throw error;
+      }
     }
   },
 
   // Feedback
-  async submitFeedback(feedbackData) {
-    try {
-      const response = await apiClient.post('/feedback', {
-        ...feedbackData,
-        timestamp: new Date().toISOString(),
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Error submitting feedback:', error);
-      throw error;
+  feedback: {
+    async submit(feedbackData) {
+      try {
+        const response = await apiClient.post('/feedback', {
+          ...feedbackData,
+          timestamp: new Date().toISOString(),
+        });
+        return response.data;
+      } catch (error) {
+        console.error('Error submitting feedback:', error);
+        throw error;
+      }
     }
   }
 };

@@ -15,7 +15,7 @@ const FeedbackModal = ({ onClose, userInfo }) => {
 
     setIsSubmitting(true);
     try {
-      await apiService.submitFeedback({
+      await apiService.feedback.submit({
         feedback: feedback.trim(),
         rating,
         category,
