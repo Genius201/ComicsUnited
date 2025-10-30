@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { apiService } from './services/api.js';
+import SecurityMiddleware from './utils/securityMiddleware.js';
+import { SecurityUtils } from './utils/security.js';
 import './App.css';
 import LandingPage from './LandingPage';
 import Auth from './Auth';
