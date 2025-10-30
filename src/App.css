@@ -156,6 +156,20 @@
   box-shadow: 0 4px 15px rgba(85, 156, 255, 0.3);
 }
 
+.invite-btn {
+  background: rgba(255, 193, 7, 0.2);
+  border: 2px solid rgba(255, 193, 7, 0.4);
+  color: rgba(255, 193, 7, 0.9);
+}
+
+.invite-btn:hover {
+  background: rgba(255, 193, 7, 0.3);
+  border-color: rgba(255, 193, 7, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+  color: rgba(255, 193, 7, 1);
+}
+
 /* Welcome section for non-logged-in users */
 .welcome-section {
   display: flex;

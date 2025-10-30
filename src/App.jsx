@@ -7,6 +7,7 @@ import LandingPage from './LandingPage';
 import Auth from './Auth';
 import VenueSearch from './VenueSearch';
 import FeedbackModal from './FeedbackModal';
+import InviteModal from './InviteModal';
 import ProfilesPage from './ProfilesPage';
 
 function App() {
@@ -24,6 +25,9 @@ function App() {
   const [showVenuesDropdown, setShowVenuesDropdown] = useState(false);
   const [showGroupsDropdown, setShowGroupsDropdown] = useState(false);
   const [showMessagesDropdown, setShowMessagesDropdown] = useState(false);
+  
+  // Invite modal state
+  const [showInviteModal, setShowInviteModal] = useState(false);
   
   // State for data from API
   const [comedians, setComedians] = useState([]);
@@ -173,6 +177,29 @@ function App() {
     closeModal();
   };
 
+  // Invite handlers
+  const handleSendInvite = (inviteData) => {
+    if (!user.verified) {
+      alert('You must be verified before you can send invites. Please contact support for verification.');
+      return;
+    }
+
+    const { method, contact, message } = inviteData;
+    
+    // In a real app, this would call an API to send the invite
+    console.log('Sending invite:', inviteData);
+    
+    // Simulate API call
+    setTimeout(() => {
+      if (method === 'email') {
+        alert(`Invite sent successfully to ${contact} via email!`);
+      } else {
+        alert(`Invite sent successfully to ${contact} via SMS!`);
+      }
+      setShowInviteModal(false);
+    }, 1000);
+  };
+
   // Venue dropdown handlers
   const handleVenuesClick = () => {
     setShowVenuesDropdown(!showVenuesDropdown);
@@ -307,6 +334,11 @@ function App() {
                   <span className="user-name">{user.stage_name || user.fullName}!</span>
                 </div>
                 <div className="auth-buttons">
+                  {user.verified && (
+                    <button onClick={() => setShowInviteModal(true)} className="invite-btn">
+                      📨 Send Invites
+                    </button>
+                  )}
                   <button onClick={handleLogout} className="logout-btn">
                     Sign Out
                   </button>
@@ -567,6 +599,14 @@ function App() {
       {showFeedback && (
         <FeedbackModal 
           onClose={() => setShowFeedback(false)}
+          userInfo={user}
+        />
+      )}
+
+      {showInviteModal && (
+        <InviteModal 
+          onClose={() => setShowInviteModal(false)}
+          onSendInvite={handleSendInvite}
           userInfo={user}
         />
       )}
