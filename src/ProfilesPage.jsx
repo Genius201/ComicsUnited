@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { apiService } from './services/api.js';
 import UserProfile from './UserProfile';
 import ComedianSearch from './ComedianSearch';

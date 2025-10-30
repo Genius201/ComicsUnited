@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { apiService } from './services/api.js';
 import SecurityMiddleware from './utils/securityMiddleware.js';
 import { SecurityUtils } from './utils/security.js';
@@ -9,8 +10,12 @@ import VenueSearch from './VenueSearch';
 import FeedbackModal from './FeedbackModal';
 import InviteModal from './InviteModal';
 import ProfilesPage from './ProfilesPage';
+import ComedianProfile from './pages/ComedianProfile';
+import VenueDetails from './pages/VenueDetails';
+import NotFound from './pages/NotFound';
 
-function App() {
+function AppContent() {
+  const location = useLocation();
   const [user, setUser] = useState(null);
   const [selectedTab, setSelectedTab] = useState('profiles');
   const [showModal, setShowModal] = useState(false);
@@ -367,24 +372,24 @@ function App() {
 
       {/* Navigation */}
       <nav className="app-nav">
-        <button 
-          className={selectedTab === 'profiles' ? 'active' : ''} 
-          onClick={() => setSelectedTab('profiles')}
+        <Link 
+          to="/" 
+          className={location.pathname === '/' ? 'nav-link active' : 'nav-link'}
         >
           🎤 Comedian Profiles
-        </button>
+        </Link>
         <div className="venues-dropdown-container">
           <button 
-            className={selectedTab === 'venues' || showVenuesDropdown ? 'active' : ''} 
+            className={location.pathname.startsWith('/venues') || showVenuesDropdown ? 'nav-link active' : 'nav-link'} 
             onClick={handleVenuesClick}
           >
             🏛️ Venues {showVenuesDropdown ? '▲' : '▼'}
           </button>
           {showVenuesDropdown && (
             <div className="dropdown-menu">
-              <button onClick={() => handleDropdownOption('search')} className="dropdown-item">
+              <Link to="/venues" className="dropdown-item" onClick={() => setShowVenuesDropdown(false)}>
                 🔍 Search Venues
-              </button>
+              </Link>
               <button onClick={() => handleDropdownOption('availability')} className="dropdown-item">
                 📅 Post Availability for Fill-ins
               </button>
@@ -455,87 +460,89 @@ function App() {
         {loading && <div className="loading">Loading...</div>}
         {error && <div className="error">{error}</div>}
 
-        {!user ? (
-          // Show welcome content for non-logged-in users
-          <div className="welcome-section">
-            <div className="welcome-content">
-              <h2>🎭 Welcome to Comics United</h2>
-              <p>The premier professional networking platform for comedians.</p>
-              
-              <div className="feature-highlights">
-                <div className="feature-item">
-                  <h3>🎤 Connect with Comedians</h3>
-                  <p>Network with verified comedy professionals nationwide</p>
-                </div>
-                <div className="feature-item">
-                  <h3>🏛️ Find Venues</h3>
-                  <p>Discover open mic nights and comedy venues in every city</p>
-                </div>
-                <div className="feature-item">
-                  <h3>👥 Join Groups</h3>
-                  <p>Collaborate with writing groups and performance troupes</p>
+        <Routes>
+          <Route path="/" element={
+            !user ? (
+              // Show welcome content for non-logged-in users
+              <div className="welcome-section">
+                <div className="welcome-content">
+                  <h2>🎭 Welcome to Comics United</h2>
+                  <p>The premier professional networking platform for comedians.</p>
+                  
+                  <div className="feature-highlights">
+                    <div className="feature-item">
+                      <h3>🎤 Connect with Comedians</h3>
+                      <p>Network with verified comedy professionals nationwide</p>
+                    </div>
+                    <div className="feature-item">
+                      <h3>🏛️ Find Venues</h3>
+                      <p>Discover open mic nights and comedy venues in every city</p>
+                    </div>
+                    <div className="feature-item">
+                      <h3>👥 Join Groups</h3>
+                      <p>Collaborate with writing groups and performance troupes</p>
+                    </div>
+                  </div>
+                  
+                  <div className="cta-section">
+                    <p>Ready to grow your comedy career?</p>
+                    <button 
+                      onClick={() => setShowAuth(true)} 
+                      className="cta-button"
+                    >
+                      Get Started Free
+                    </button>
+                  </div>
                 </div>
               </div>
-              
-              <div className="cta-section">
-                <p>Ready to grow your comedy career?</p>
-                <button 
-                  onClick={() => setShowAuth(true)} 
-                  className="cta-button"
-                >
-                  Get Started Free
-                </button>
-              </div>
-            </div>
-          </div>
-        ) : (
-          // Show regular content for logged-in users
-          <>
-            {selectedTab === 'profiles' && (
+            ) : (
+              // Show profiles for logged-in users
               <ProfilesPage 
                 user={user}
                 comedians={comedians}
                 onUserUpdate={setUser}
               />
-            )}
-
-        {selectedTab === 'venues' && (
-          <VenueSearch />
-        )}
-
-        {selectedTab === 'groups' && (
-          <div className="groups-section">
-            <h2>👥 Collaboration Groups</h2>
-            <div className="groups-grid">
-              {groups.map(group => (
-                <div key={group.id} className="group-card">
-                  <h3>{group.name}</h3>
-                  <div className="group-info">
-                    <p><strong>Type:</strong> {group.type}</p>
-                    <p><strong>Members:</strong> {group.members}</p>
-                    <p><strong>Location:</strong> {group.location}</p>
+            )
+          } />
+          
+          <Route path="/comedian/:id" element={<ComedianProfile />} />
+          <Route path="/venue/:id" element={<VenueDetails />} />
+          <Route path="/venues" element={<VenueSearch />} />
+          
+          <Route path="/groups" element={
+            <div className="groups-section">
+              <h2>👥 Collaboration Groups</h2>
+              <div className="groups-grid">
+                {groups.map(group => (
+                  <div key={group.id} className="group-card">
+                    <h3>{group.name}</h3>
+                    <div className="group-info">
+                      <p><strong>Type:</strong> {group.type}</p>
+                      <p><strong>Members:</strong> {group.members}</p>
+                      <p><strong>Location:</strong> {group.location}</p>
+                    </div>
+                    <div className="group-description">
+                      <p>{group.description}</p>
+                    </div>
+                    <button className="join-group-btn">Join Group</button>
                   </div>
-                  <div className="group-description">
-                    <p>{group.description}</p>
-                  </div>
-                  <button className="join-group-btn">Join Group</button>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
-
-        {selectedTab === 'messages' && (
-          <div className="messages-section">
-            <h2>💬 Messages</h2>
-            <div className="messages-placeholder">
-              <p>Your messages will appear here once you start connecting with other comedians.</p>
-              <p>Click on any comedian profile to send them a message!</p>
+          } />
+          
+          <Route path="/messages" element={
+            <div className="messages-section">
+              <h2>💬 Messages</h2>
+              <div className="messages-placeholder">
+                <p>Your messages will appear here once you start connecting with other comedians.</p>
+                <p>Click on any comedian profile to send them a message!</p>
+              </div>
             </div>
-          </div>
-        )}
-          </>
-        )}
+          } />
+          
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </main>
 
       {/* Footer */}
@@ -611,6 +618,15 @@ function App() {
         />
       )}
     </div>
+  );
+}
+
+// Main App component with Router
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
   );
 }
 

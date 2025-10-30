@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import VenueSearch from './VenueSearch';
 
 const ComedianSearch = ({ 
@@ -347,8 +348,15 @@ const ComedianSearch = ({
                   className="view-profile-button"
                   onClick={() => onProfileView(comedian)}
                 >
-                  👁️ View Profile
+                  👁️ Quick View
                 </button>
+                
+                <Link 
+                  to={`/comedian/${comedian.id}`}
+                  className="full-profile-link"
+                >
+                  🔗 Full Profile
+                </Link>
                 
                 <div className="action-buttons">
                   {isConnected(comedian.id) ? (

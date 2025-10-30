@@ -272,7 +272,8 @@
   flex-wrap: wrap;
 }
 
-.app-nav button {
+.app-nav button,
+.app-nav .nav-link {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 25px;
@@ -284,15 +285,19 @@
   font-size: 1rem;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
+  text-decoration: none;
+  display: inline-block;
 }
 
-.app-nav button:hover {
+.app-nav button:hover,
+.app-nav .nav-link:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.app-nav button.active {
+.app-nav button.active,
+.app-nav .nav-link.active {
   background: rgba(254, 202, 87, 0.3);
   border-color: rgba(254, 202, 87, 0.5);
   color: #feca57;
