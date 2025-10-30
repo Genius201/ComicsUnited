@@ -1,84 +1,145 @@
-// API service for communicating with the backend
-const API_BASE_URL = 'http://localhost:3001';
+import axios from 'axios';
+import SecurityUtils from '../utils/security.js';
+
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+
+// Create axios instance with security configurations
+const apiClient = axios.create({
+  baseURL: API_BASE_URL,
+  timeout: 10000, // 10 second timeout
+  headers: {
+    'Content-Type': 'application/json',
+    'X-Requested-With': 'XMLHttpRequest'
+  }
+});
+
+// Request interceptor for security
+apiClient.interceptors.request.use(
+  (config) => {
+    // Add CSRF token if available
+    const csrfToken = SecurityUtils.secureStorage.get('csrf_token');
+    if (csrfToken) {
+      config.headers['X-CSRF-Token'] = csrfToken;
+    }
+    
+    // Sanitize request data
+    if (config.data && typeof config.data === 'object') {
+      config.data = sanitizeRequestData(config.data);
+    }
+    
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+// Response interceptor for error handling
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 429) {
+      console.warn('Rate limit exceeded. Please try again later.');
+    }
+    return Promise.reject(error);
+  }
+);
+
+// Sanitize request data recursively
+function sanitizeRequestData(data) {
+  if (typeof data === 'string') {
+    return SecurityUtils.sanitizeInput(data);
+  }
+  
+  if (Array.isArray(data)) {
+    return data.map(sanitizeRequestData);
+  }
+  
+  if (typeof data === 'object' && data !== null) {
+    const sanitized = {};
+    for (const [key, value] of Object.entries(data)) {
+      sanitized[key] = sanitizeRequestData(value);
+    }
+    return sanitized;
+  }
+  
+  return data;
+}
 
 export const apiService = {
-  // Comedian endpoints
-  getComedians: async () => {
+  // Users
+  async getUsers() {
     try {
-      const response = await fetch(`${API_BASE_URL}/comedians`);
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching comedians:', error);
-      throw error;
-    }
-  },
-
-  // Venue endpoints
-  getVenues: async () => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/venues`);
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching venues:', error);
-      throw error;
-    }
-  },
-
-  // Group endpoints
-  getGroups: async () => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/groups`);
-      return await response.json();
-    } catch (error) {
-      console.error('Error fetching groups:', error);
-      throw error;
-    }
-  },
-
-  // User endpoints
-  getUsers: async () => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/users`);
-      return await response.json();
+      const response = await apiClient.get('/users');
+      return response.data;
     } catch (error) {
       console.error('Error fetching users:', error);
       throw error;
     }
   },
 
-  createUser: async (userData) => {
+  async createUser(userData) {
     try {
-      const response = await fetch(`${API_BASE_URL}/users`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-      });
-      return await response.json();
+      const response = await apiClient.post('/users', userData);
+      return response.data;
     } catch (error) {
       console.error('Error creating user:', error);
       throw error;
     }
   },
 
-  // Feedback endpoints
-  submitFeedback: async (feedbackData) => {
+  // Comedians
+  async getComedians() {
     try {
-      const response = await fetch(`${API_BASE_URL}/feedback`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...feedbackData,
-          timestamp: new Date().toISOString(),
-        }),
+      const response = await apiClient.get('/comedians');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching comedians:', error);
+      throw error;
+    }
+  },
+
+  async getComedianById(id) {
+    try {
+      const response = await apiClient.get(`/comedians/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching comedian with id ${id}:`, error);
+      throw error;
+    }
+  },
+
+  // Venues
+  async getVenues() {
+    try {
+      const response = await apiClient.get('/venues');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching venues:', error);
+      throw error;
+    }
+  },
+
+  // Groups
+  async getGroups() {
+    try {
+      const response = await apiClient.get('/groups');
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching groups:', error);
+      throw error;
+    }
+  },
+
+  // Feedback
+  async submitFeedback(feedbackData) {
+    try {
+      const response = await apiClient.post('/feedback', {
+        ...feedbackData,
+        timestamp: new Date().toISOString(),
       });
-      return await response.json();
+      return response.data;
     } catch (error) {
       console.error('Error submitting feedback:', error);
       throw error;
     }
-  },
+  }
 };
