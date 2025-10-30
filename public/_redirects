@@ -1,0 +1,18 @@
+# Netlify _redirects file for Comics United permalinks
+# This file provides fallback redirect rules
+
+# Clean permalink patterns
+/comedian/*     /index.html   200
+/venue/*        /index.html   200  
+/group/*        /index.html   200
+/profile/*      /index.html   200
+/auth           /index.html   200
+/search         /index.html   200
+/about          /index.html   200
+/contact        /index.html   200
+
+# API proxy for development (if needed)
+/api/*          http://localhost:3001/:splat  200!
+
+# Fallback - SPA catch-all (must be last)
+/*              /index.html   200

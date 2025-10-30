@@ -21,6 +21,16 @@ Visit the live app: **[Comics United](https://your-site-will-be-here.netlify.app
 - **Email:** demo@comicsunited.com
 - **Password:** password123
 
+## 🔗 Permalink Configuration
+
+Comics United is configured with clean, SEO-friendly URLs:
+- **Comedian Profiles:** `/comedian/:id`
+- **Venue Pages:** `/venue/:id`  
+- **Groups:** `/group/:id`
+- **User Profiles:** `/profile/:username`
+
+See `PERMALINK-GUIDE.md` for detailed configuration information.
+
 ## 💻 Tech Stack
 
 - **Frontend:** React 18 + Vite

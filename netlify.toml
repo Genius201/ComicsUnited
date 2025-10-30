@@ -5,22 +5,83 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# Permalink redirects for clean URLs
+[[redirects]]
+  from = "/comedian/:id"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/venue/:id"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/group/:id"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/profile/:username"
+  to = "/index.html"
+  status = 200
+
+# API redirects for development
+[[redirects]]
+  from = "/api/*"
+  to = "http://localhost:3001/:splat"
+  status = 200
+  conditions = {Cookie = ["netlify-dev-login=*"]}
+
+# Fallback for SPA - must be last
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
+# Security headers
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Asset caching with optimized permalinks
 [[headers]]
   for = "/assets/*"
   [headers.values]
-    Cache-Control = "max-age=31536000"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/*.css"
   [headers.values]
-    Cache-Control = "max-age=31536000"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[headers]]
   for = "/*.js"
   [headers.values]
-    Cache-Control = "max-age=31536000"
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Prevent caching of HTML files for proper permalink updates
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# SEO-friendly permalink headers
+[[headers]]
+  for = "/comedian/*"
+  [headers.values]
+    Cache-Control = "public, max-age=300, s-maxage=300"
+
+[[headers]]
+  for = "/venue/*"
+  [headers.values]
+    Cache-Control = "public, max-age=300, s-maxage=300"
+
+[[headers]]
+  for = "/profile/*"
+  [headers.values]
+    Cache-Control = "public, max-age=300, s-maxage=300"
