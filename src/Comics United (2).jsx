@@ -7,7 +7,7 @@ const Auth = ({ onLogin }) => {
     email: '',
     password: '',
     name: '',
-    specialty: '',
+    specialty: [],
     experience: ''
   });
   const [errors, setErrors] = useState({});
@@ -24,6 +24,23 @@ const Auth = ({ onLogin }) => {
       setErrors(prev => ({
         ...prev,
         [name]: ''
+      }));
+    }
+  };
+
+  const handleSpecialtyChange = (e) => {
+    const { value, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      specialty: checked 
+        ? [...prev.specialty, value]
+        : prev.specialty.filter(s => s !== value)
+    }));
+    // Clear error when user selects specialties
+    if (errors.specialty) {
+      setErrors(prev => ({
+        ...prev,
+        specialty: ''
       }));
     }
   };
@@ -51,8 +68,8 @@ const Auth = ({ onLogin }) => {
       if (!formData.name) {
         newErrors.name = 'Name is required';
       }
-      if (!formData.specialty) {
-        newErrors.specialty = 'Please select your comedy specialty';
+      if (!formData.specialty || formData.specialty.length === 0) {
+        newErrors.specialty = 'Please select at least one comedy specialty';
       }
       if (!formData.experience) {
         newErrors.experience = 'Please select your experience level';
@@ -98,7 +115,7 @@ const Auth = ({ onLogin }) => {
           email: '',
           password: '',
           name: '',
-          specialty: '',
+          specialty: [],
           experience: ''
         });
       } else {
@@ -198,21 +215,81 @@ const Auth = ({ onLogin }) => {
           {isSignUp && (
             <>
               <div className="form-group">
-                <label>Comedy Specialty</label>
-                <select
-                  name="specialty"
-                  value={formData.specialty}
-                  onChange={handleInputChange}
-                  className={errors.specialty ? 'error' : ''}
-                >
-                  <option value="">Select your specialty</option>
-                  <option value="stand-up">Stand-up Comedy</option>
-                  <option value="improv">Improv</option>
-                  <option value="sketch">Sketch Comedy</option>
-                  <option value="writing">Comedy Writing</option>
-                  <option value="musical">Musical Comedy</option>
-                  <option value="other">Other</option>
-                </select>
+                <label>Comedy Specialties (Select all that apply)</label>
+                <div className="checkbox-group">
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      value="Stand-up Comedy"
+                      checked={formData.specialty.includes("Stand-up Comedy")}
+                      onChange={handleSpecialtyChange}
+                    />
+                    Stand-up Comedy
+                  </label>
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      value="Improv"
+                      checked={formData.specialty.includes("Improv")}
+                      onChange={handleSpecialtyChange}
+                    />
+                    Improv
+                  </label>
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      value="Sketch Comedy"
+                      checked={formData.specialty.includes("Sketch Comedy")}
+                      onChange={handleSpecialtyChange}
+                    />
+                    Sketch Comedy
+                  </label>
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      value="Comedy Writing"
+                      checked={formData.specialty.includes("Comedy Writing")}
+                      onChange={handleSpecialtyChange}
+                    />
+                    Comedy Writing
+                  </label>
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      value="Musical Comedy"
+                      checked={formData.specialty.includes("Musical Comedy")}
+                      onChange={handleSpecialtyChange}
+                    />
+                    Musical Comedy
+                  </label>
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      value="Roast Comedy"
+                      checked={formData.specialty.includes("Roast Comedy")}
+                      onChange={handleSpecialtyChange}
+                    />
+                    Roast Comedy
+                  </label>
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      value="Clean Comedy"
+                      checked={formData.specialty.includes("Clean Comedy")}
+                      onChange={handleSpecialtyChange}
+                    />
+                    Clean Comedy
+                  </label>
+                  <label className="checkbox-label">
+                    <input
+                      type="checkbox"
+                      value="Storytelling"
+                      checked={formData.specialty.includes("Storytelling")}
+                      onChange={handleSpecialtyChange}
+                    />
+                    Storytelling
+                  </label>
+                </div>
                 {errors.specialty && <span className="field-error">{errors.specialty}</span>}
               </div>
 

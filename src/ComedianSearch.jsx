@@ -37,13 +37,20 @@ const ComedianSearch = ({
     // Text search
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(comedian => 
-        (comedian.stage_name && comedian.stage_name.toLowerCase().includes(query)) ||
-        (comedian.name && comedian.name.toLowerCase().includes(query)) ||
-        (comedian.specialty && comedian.specialty.toLowerCase().includes(query)) ||
-        (comedian.location && comedian.location.toLowerCase().includes(query)) ||
-        (comedian.bio && comedian.bio.toLowerCase().includes(query))
-      );
+      filtered = filtered.filter(comedian => {
+        // Handle specialty search for both array and string formats
+        const specialtyMatch = Array.isArray(comedian.comedy_specialty) 
+          ? comedian.comedy_specialty.some(spec => spec.toLowerCase().includes(query))
+          : (comedian.comedy_specialty && comedian.comedy_specialty.toLowerCase().includes(query)) ||
+            (comedian.specialty && comedian.specialty.toLowerCase().includes(query));
+            
+        return (comedian.stage_name && comedian.stage_name.toLowerCase().includes(query)) ||
+               (comedian.fullName && comedian.fullName.toLowerCase().includes(query)) ||
+               (comedian.name && comedian.name.toLowerCase().includes(query)) ||
+               specialtyMatch ||
+               (comedian.location && comedian.location.toLowerCase().includes(query)) ||
+               (comedian.bio && comedian.bio.toLowerCase().includes(query));
+      });
     }
 
     // Location filter

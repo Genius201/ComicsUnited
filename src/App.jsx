@@ -64,10 +64,10 @@ function App() {
       setComedians([
         {
           id: 1,
-          name: "Sarah Johnson",
+          fullName: "Sarah Johnson",
           stage_name: "Sassy Sarah",
-          specialty: "Stand-up Comedy",
-          experience: "Professional (10+ years)",
+          comedy_specialty: ["Stand-up Comedy", "Observational Comedy"],
+          experience_level: "Professional (10+ years)",
           rating: 4.8,
           location: "New York, NY",
           bio: "Known for sharp wit and observational humor. Regular at Comedy Cellar.",
@@ -75,10 +75,10 @@ function App() {
         },
         {
           id: 2,
-          name: "Mike Rodriguez",
+          fullName: "Mike Rodriguez",
           stage_name: "Mikey Laughs",
-          specialty: "Improv",
-          experience: "Advanced (5-9 years)",
+          comedy_specialty: ["Improv", "Character Work"],
+          experience_level: "Advanced (5-9 years)",
           rating: 4.6,
           location: "Los Angeles, CA",
           bio: "UCB graduate specializing in character work and musical improv.",
@@ -86,10 +86,10 @@ function App() {
         },
         {
           id: 3,
-          name: "Jenny Chen",
+          fullName: "Jenny Chen",
           stage_name: "Joke-a-lot Jenny",
-          specialty: "Musical Comedy",
-          experience: "Intermediate (2-4 years)",
+          comedy_specialty: ["Musical Comedy", "Piano Comedy"],
+          experience_level: "Intermediate (2-4 years)",
           rating: 4.7,
           location: "Chicago, IL",
           bio: "Combines piano skills with comedy for unique musical performances.",
@@ -529,9 +529,13 @@ function App() {
             </div>
             <div className="modal-body">
               <div className="comedian-details">
-                <p><strong>Real Name:</strong> {selectedComedian.name}</p>
-                <p><strong>Specialty:</strong> {selectedComedian.specialty}</p>
-                <p><strong>Experience:</strong> {selectedComedian.experience}</p>
+                <p><strong>Real Name:</strong> {selectedComedian.fullName || selectedComedian.name}</p>
+                <p><strong>Specialties:</strong> {
+                  Array.isArray(selectedComedian.comedy_specialty) 
+                    ? selectedComedian.comedy_specialty.join(', ')
+                    : selectedComedian.specialty || selectedComedian.comedy_specialty
+                }</p>
+                <p><strong>Experience:</strong> {selectedComedian.experience_level || selectedComedian.experience}</p>
                 <p><strong>Location:</strong> {selectedComedian.location}</p>
                 <p><strong>Rating:</strong> ⭐ {selectedComedian.rating}</p>
                 <p><strong>Bio:</strong> {selectedComedian.bio}</p>
