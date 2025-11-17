@@ -12,9 +12,11 @@ import InviteModal from './InviteModal';
 import ProfilesPage from './ProfilesPage';
 import ComedianProfile from './pages/ComedianProfile';
 import VenueDetails from './pages/VenueDetails';
+import InvitesAndTesting from './pages/InvitesAndTesting';
 import NotFound from './pages/NotFound';
 
 function AppContent() {
+  console.log('AppContent component rendering...');
   const location = useLocation();
   const [user, setUser] = useState(null);
   const [selectedTab, setSelectedTab] = useState('profiles');
@@ -52,21 +54,25 @@ function AppContent() {
   }, []);
 
   const fetchData = async () => {
+    console.log('Starting fetchData...');
     setLoading(true);
     setError(null);
     
     try {
+      console.log('Making API calls...');
       const [comediansRes, venuesRes, groupsRes] = await Promise.all([
         apiService.comedians.getAll(),
         apiService.venues.getAll(),
         apiService.groups.getAll()
       ]);
       
-      setComedians(comediansRes.data);
-      setVenues(venuesRes.data);
-      setGroups(groupsRes.data);
+      console.log('API responses received:', { comediansRes, venuesRes, groupsRes });
+      setComedians(comediansRes || []);
+      setVenues(venuesRes || []);
+      setGroups(groupsRes || []);
     } catch (err) {
-      setError('Failed to load data. Please make sure the server is running.');
+      console.error('API Error - using fallback data:', err);
+      setError('Failed to load data. Using fallback data.');
       console.error('Error fetching data:', err);
       
       // Use fallback data when server is not available
@@ -148,6 +154,7 @@ function AppContent() {
         }
       ]);
     } finally {
+      console.log('fetchData completed, setting loading to false');
       setLoading(false);
     }
   };
@@ -378,6 +385,12 @@ function AppContent() {
         >
           🎤 Comedian Profiles
         </Link>
+        <Link 
+          to="/invites-testing" 
+          className={location.pathname === '/invites-testing' ? 'nav-link active' : 'nav-link'}
+        >
+          📧 Invites & Testing
+        </Link>
         <div className="venues-dropdown-container">
           <button 
             className={location.pathname.startsWith('/venues') || showVenuesDropdown ? 'nav-link active' : 'nav-link'} 
@@ -508,6 +521,7 @@ function AppContent() {
           <Route path="/comedian/:id" element={<ComedianProfile />} />
           <Route path="/venue/:id" element={<VenueDetails />} />
           <Route path="/venues" element={<VenueSearch />} />
+          <Route path="/invites-testing" element={<InvitesAndTesting />} />
           
           <Route path="/groups" element={
             <div className="groups-section">
@@ -623,6 +637,7 @@ function AppContent() {
 
 // Main App component with Router
 function App() {
+  console.log('App component rendering...');
   return (
     <Router>
       <AppContent />

@@ -1,0 +1,382 @@
+.invites-testing-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: white;
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 30px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.page-header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.page-header p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Section Styles */
+section {
+  margin-bottom: 40px;
+  padding: 30px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.section-header p {
+  font-size: 1.1rem;
+  opacity: 0.8;
+}
+
+/* Invite Section */
+.invite-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.invite-method {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 25px;
+  border-radius: 12px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.invite-method:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.invite-method h3 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.invite-method p {
+  margin-bottom: 20px;
+  opacity: 0.8;
+}
+
+.invite-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.invite-btn.primary {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  color: white;
+}
+
+.invite-btn.secondary {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  color: white;
+}
+
+.invite-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.invite-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.social-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.social-btn.twitter {
+  background: #1da1f2;
+  color: white;
+}
+
+.social-btn.facebook {
+  background: #4267b2;
+  color: white;
+}
+
+.social-btn.linkedin {
+  background: #0077b5;
+  color: white;
+}
+
+.social-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Testing Section */
+.testing-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-left: 4px solid transparent;
+}
+
+.feature-card.active {
+  border-left-color: #4ecdc4;
+}
+
+.feature-card.coming-soon {
+  border-left-color: #ffa726;
+  opacity: 0.7;
+}
+
+.feature-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.feature-info {
+  flex: 1;
+}
+
+.feature-info h3 {
+  font-size: 1.3rem;
+  margin-bottom: 8px;
+  color: #fff;
+}
+
+.feature-info p {
+  margin-bottom: 12px;
+  opacity: 0.8;
+  line-height: 1.4;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-badge.active {
+  background: rgba(76, 201, 196, 0.2);
+  color: #4ecdc4;
+  border: 1px solid #4ecdc4;
+}
+
+.status-badge.coming-soon {
+  background: rgba(255, 167, 38, 0.2);
+  color: #ffa726;
+  border: 1px solid #ffa726;
+}
+
+.feature-actions {
+  margin-left: 20px;
+}
+
+.test-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.test-btn.active {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  color: white;
+}
+
+.test-btn.disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+}
+
+.test-btn.active:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Rewards Section */
+.rewards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 25px;
+}
+
+.reward-item {
+  text-align: center;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.reward-item:hover {
+  transform: translateY(-5px);
+}
+
+.reward-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.reward-item h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.reward-item p {
+  opacity: 0.8;
+  line-height: 1.4;
+}
+
+/* Feedback Section */
+.feedback-quick-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.feedback-btn {
+  padding: 15px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.feedback-btn.bug-report {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+}
+
+.feedback-btn.feature-request {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+}
+
+.feedback-btn.general-feedback {
+  background: linear-gradient(135deg, #a8edea, #fed6e3);
+  color: #333;
+}
+
+.feedback-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .invites-testing-page {
+    padding: 15px;
+  }
+  
+  .page-header h1 {
+    font-size: 2rem;
+  }
+  
+  .section-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .invite-actions {
+    grid-template-columns: 1fr;
+  }
+  
+  .feature-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+  
+  .feature-actions {
+    margin-left: 0;
+  }
+  
+  .rewards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  
+  .feedback-quick-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .feedback-btn {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  section {
+    padding: 20px;
+  }
+  
+  .invite-method,
+  .feature-card,
+  .reward-item {
+    padding: 20px;
+  }
+  
+  .testing-features {
+    grid-template-columns: 1fr;
+  }
+}

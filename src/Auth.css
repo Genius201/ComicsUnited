@@ -133,6 +133,54 @@
   75% { transform: translateX(5px); }
 }
 
+.account-not-found {
+  background: rgba(54, 162, 235, 0.2);
+  border-color: rgba(54, 162, 235, 0.4);
+  color: #36a2eb;
+}
+
+.account-exists {
+  background: rgba(255, 193, 7, 0.2);
+  border-color: rgba(255, 193, 7, 0.4);
+  color: #ffc107;
+}
+
+.signup-suggestion-button {
+  margin-top: 0.8rem;
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(45deg, #36a2eb, #4bc0c0);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.signup-suggestion-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(54, 162, 235, 0.3);
+}
+
+.signin-suggestion-button {
+  margin-top: 0.8rem;
+  padding: 0.8rem 1.5rem;
+  background: linear-gradient(45deg, #ffc107, #ff8f00);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.signin-suggestion-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 193, 7, 0.3);
+}
+
 .submit-button {
   padding: 1.2rem;
   background: linear-gradient(45deg, #ff6b6b, #feca57);

@@ -103,20 +103,22 @@ const Auth = ({ onLogin }) => {
       if (isLogin) {
         // Login logic
         const users = JSON.parse(localStorage.getItem('comicsUnited_users') || '[]');
-        const user = users.find(u => u.email === formData.email && u.password === formData.password);
+        const existingUser = users.find(u => u.email === formData.email);
         
-        if (user) {
-          localStorage.setItem('comicsUnited_user', JSON.stringify(user));
-          onLogin(user);
+        if (existingUser && existingUser.password === formData.password) {
+          localStorage.setItem('comicsUnited_user', JSON.stringify(existingUser));
+          onLogin(existingUser);
+        } else if (existingUser) {
+          setError('Invalid password');
         } else {
-          setError('Invalid email or password');
+          setError('accountNotFound'); // Special error code for non-existent account
         }
       } else {
         // Signup logic
         const users = JSON.parse(localStorage.getItem('comicsUnited_users') || '[]');
         
         if (users.find(u => u.email === formData.email)) {
-          setError('An account with this email already exists');
+          setError('accountExists'); // Special error code for existing account
           return;
         }
 
@@ -174,7 +176,37 @@ const Auth = ({ onLogin }) => {
           </div>
 
           <form onSubmit={handleSubmit} className="auth-form">
-            {error && <div className="error-message">{error}</div>}
+            {error && error === 'accountNotFound' ? (
+              <div className="error-message account-not-found">
+                <p>No account found with that email address.</p>
+                <button 
+                  type="button" 
+                  onClick={() => {
+                    setIsLogin(false);
+                    setError('');
+                  }}
+                  className="signup-suggestion-button"
+                >
+                  Create New Account
+                </button>
+              </div>
+            ) : error && error === 'accountExists' ? (
+              <div className="error-message account-exists">
+                <p>An account with this email already exists.</p>
+                <button 
+                  type="button" 
+                  onClick={() => {
+                    setIsLogin(true);
+                    setError('');
+                  }}
+                  className="signin-suggestion-button"
+                >
+                  Sign In Instead
+                </button>
+              </div>
+            ) : error && (
+              <div className="error-message">{error}</div>
+            )}
 
             <div className="form-group">
               <label htmlFor="email">Email Address *</label>

@@ -1,24 +1,57 @@
+
 import axios from 'axios';
 import SecurityUtils from '../utils/security.js';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3001';
+// Helper to get Vite env base URL (only in browser/Vite)
+let viteApiBaseUrl;
+function getViteApiBaseUrl() {
+  // Only in browser/Vite: dynamically import viteApiBaseUrl.js
+  if (typeof window === 'undefined') {
+    // Node/Jest: never reference import.meta
+    return undefined;
+  }
+  if (viteApiBaseUrl !== undefined) {
+    return viteApiBaseUrl;
+  }
+  try {
+    // Dynamically require viteApiBaseUrl.js (only in browser)
+    // eslint-disable-next-line global-require
+    viteApiBaseUrl = require('./viteApiBaseUrl.js').default;
+    return viteApiBaseUrl;
+  } catch (e) {
+    return undefined;
+  }
+}
 
-// Create axios instance with maximum security configurations
-const apiClient = axios.create({
-  baseURL: API_BASE_URL,
-  timeout: 8000, // Reduced timeout for better security
-  headers: {
-    'Content-Type': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest',
-    'X-Content-Type-Options': 'nosniff',
-    'X-Frame-Options': 'DENY',
-    'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0'
-  },
-  // Additional security options
-  withCredentials: false, // Prevent credential leakage
-  maxRedirects: 0, // Prevent redirect attacks
-  validateStatus: (status) => status >= 200 && status < 300 // Strict status validation
-});
+// Main API client factory
+export function createApiClient(baseURL) {
+  let resolvedBaseURL = baseURL;
+  if (!resolvedBaseURL) {
+    // Try Vite env (browser only)
+    resolvedBaseURL = getViteApiBaseUrl();
+  }
+  if (!resolvedBaseURL) {
+    resolvedBaseURL = 'http://localhost:3001';
+  }
+  return axios.create({
+    baseURL: resolvedBaseURL,
+    timeout: 8000,
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Requested-With': 'XMLHttpRequest',
+      'X-Content-Type-Options': 'nosniff',
+      'X-Frame-Options': 'DENY',
+      'Cache-Control': 'no-store, no-cache, must-revalidate, max-age=0'
+    },
+    withCredentials: false,
+    maxRedirects: 0,
+    validateStatus: (status) => status >= 200 && status < 300
+  });
+}
+
+// Default client for app usage
+const apiClient = createApiClient();
+
 
 // Request interceptor for security
 apiClient.interceptors.request.use(
@@ -28,12 +61,10 @@ apiClient.interceptors.request.use(
     if (csrfToken) {
       config.headers['X-CSRF-Token'] = csrfToken;
     }
-    
     // Sanitize request data
     if (config.data && typeof config.data === 'object') {
       config.data = sanitizeRequestData(config.data);
     }
-    
     return config;
   },
   (error) => Promise.reject(error)
@@ -52,24 +83,16 @@ apiClient.interceptors.response.use(
 
 // Sanitize request data recursively
 function sanitizeRequestData(data) {
-  if (typeof data === 'string') {
-    return SecurityUtils.sanitizeInput(data);
-  }
-  
-  if (Array.isArray(data)) {
-    return data.map(sanitizeRequestData);
-  }
-  
-  if (typeof data === 'object' && data !== null) {
+  if (data && typeof data === 'object' && !Array.isArray(data)) {
     const sanitized = {};
     for (const [key, value] of Object.entries(data)) {
       sanitized[key] = sanitizeRequestData(value);
     }
     return sanitized;
   }
-  
   return data;
 }
+
 
 export const apiService = {
   // Users
@@ -83,7 +106,6 @@ export const apiService = {
         throw error;
       }
     },
-
     async create(userData) {
       try {
         const response = await apiClient.post('/users', userData);
@@ -94,7 +116,6 @@ export const apiService = {
       }
     }
   },
-
   // Comedians
   comedians: {
     async getAll() {
@@ -106,7 +127,6 @@ export const apiService = {
         throw error;
       }
     },
-
     async getById(id) {
       try {
         const response = await apiClient.get(`/comedians/${id}`);
@@ -117,7 +137,6 @@ export const apiService = {
       }
     }
   },
-
   // Venues
   venues: {
     async getAll() {
@@ -129,7 +148,6 @@ export const apiService = {
         throw error;
       }
     },
-
     async getById(id) {
       try {
         const response = await apiClient.get(`/venues/${id}`);
@@ -139,7 +157,6 @@ export const apiService = {
         throw error;
       }
     },
-
     async getByState(state) {
       try {
         const response = await apiClient.get(`/venues?state=${state}`);
@@ -150,7 +167,6 @@ export const apiService = {
       }
     }
   },
-
   // Groups
   groups: {
     async getAll() {
@@ -163,7 +179,6 @@ export const apiService = {
       }
     }
   },
-
   // Feedback
   feedback: {
     async submit(feedbackData) {
