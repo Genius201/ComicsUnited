@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://comicsunited.netlify.app/sitemap.xml
+
+# Crawl delay (polite crawling)
+Crawl-delay: 1
+
+# Disallow admin/auth endpoints if they exist
+Disallow: /api/
