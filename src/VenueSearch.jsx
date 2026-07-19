@@ -488,6 +488,30 @@ const VenueSearch = () => {
         }
       ]
     },
+    "OH": {
+      "Columbus": [
+        {
+          id: 26,
+          name: "The Funny Bone Columbus",
+          address: "100 N High St, Downtown",
+          type: "Comedy Club",
+          rating: 4.5,
+          capacity: 220,
+          phone: "(614) 463-1234",
+          website: "columbus.funnybone.com",
+          description: "Downtown Columbus venue with regular stand-up showcases",
+          openMic: {
+            available: true,
+            nights: ["Thursday"],
+            time: "8:00 PM",
+            signup: "7:00 PM same day",
+            cost: "$10 cover + 2 drink minimum",
+            spots: 16,
+            setLength: "5 minutes"
+          }
+        }
+      ]
+    },
     "TX": {
       "Austin": [
         {

@@ -1,5 +1,21 @@
 {
-  "users": [],
+  "users": [
+    {
+      "id": "00001",
+      "fullName": "Carl Shaffer",
+      "stage_name": "Carl Shaffer",
+      "email": "carl.shaffer@example.com",
+      "comedy_specialty": [
+        "Stand-up Comedy",
+        "Observational Comedy"
+      ],
+      "experience_level": "Intermediate (2-4 years)",
+      "location": "Columbus, OH",
+      "bio": "Columbus-based comedian with a sharp observational style and a love of crowd work.",
+      "verified": true,
+      "rating": 4.3
+    }
+  ],
   "feedback": [
     {
       "feedback": "making sure this feedACK WORKS",
@@ -55,8 +71,133 @@
       "experience_level": "Intermediate (2-4 years)",
       "location": "Chicago, IL",
       "bio": "Family-friendly comedian who brings stories to life with humor and heart.",
-      "verified": false,
+      "verified": true,
       "rating": 4.2
+    },
+    {
+      "id": 4,
+      "fullName": "Diana Ross",
+      "stage_name": "Laughing Di",
+      "email": "diana@example.com",
+      "comedy_specialty": [
+        "Observational Comedy",
+        "Storytelling"
+      ],
+      "experience_level": "Professional (10+ years)",
+      "location": "Austin, TX",
+      "bio": "Sharp observer of everyday absurdities with a knack for turning mundane moments into hilarious stories. Headliner at major clubs nationwide.",
+      "verified": true,
+      "rating": 4.7
+    },
+    {
+      "id": 5,
+      "fullName": "James Thompson",
+      "stage_name": "Jazzy J",
+      "email": "james@example.com",
+      "comedy_specialty": [
+        "Musical Comedy",
+        "Improv"
+      ],
+      "experience_level": "Advanced (5-9 years)",
+      "location": "New Orleans, LA",
+      "bio": "Jazz-infused musical comedian who blends trumpet solos with punchlines. A one-of-a-kind act that's been featured at Jazz Fest and comedy festivals nationwide.",
+      "verified": true,
+      "rating": 4.5
+    },
+    {
+      "id": 6,
+      "fullName": "Maria Garcia",
+      "stage_name": "Mariachis & Mics",
+      "email": "maria@example.com",
+      "comedy_specialty": [
+        "Character Comedy",
+        "Sketch Comedy",
+        "Stand-up Comedy"
+      ],
+      "experience_level": "Professional (10+ years)",
+      "location": "Miami, FL",
+      "bio": "Dynamic bilingual comedian known for her larger-than-life character work. Performs in both English and Spanish, bringing Latinx perspectives to the comedy stage.",
+      "verified": true,
+      "rating": 4.9
+    },
+    {
+      "id": 7,
+      "fullName": "Kevin Park",
+      "stage_name": "K-Pop Comic",
+      "email": "kevin@example.com",
+      "comedy_specialty": [
+        "Alternative Comedy",
+        "Improv",
+        "Comedy Writing"
+      ],
+      "experience_level": "Intermediate (2-4 years)",
+      "location": "Seattle, WA",
+      "bio": "Rising star in the alternative comedy scene blending pop culture references with sharp social commentary. Regular writer for late-night comedy.",
+      "verified": true,
+      "rating": 4.4
+    },
+    {
+      "id": 8,
+      "fullName": "Rachel Greenbaum",
+      "stage_name": "Rachael Rocket",
+      "email": "rachel@example.com",
+      "comedy_specialty": [
+        "Roast Comedy",
+        "Observational Comedy"
+      ],
+      "experience_level": "Advanced (5-9 years)",
+      "location": "Boston, MA",
+      "bio": "Fast-talking roast comedian with a PhD in linguistics. Known for deconstructing language and delivering razor-sharp takedowns with academic precision.",
+      "verified": true,
+      "rating": 4.6
+    },
+    {
+      "id": 9,
+      "fullName": "Tyrone Jackson",
+      "stage_name": "T-Money",
+      "email": "tyrone@example.com",
+      "comedy_specialty": [
+        "Stand-up Comedy",
+        "Storytelling",
+        "Character Comedy"
+      ],
+      "experience_level": "Industry Veteran (15+ years)",
+      "location": "Atlanta, GA",
+      "bio": "Veteran comedian with over 15 years on the road. Master storyteller whose hilarious tales of life on tour have become legendary. Mentor to up-and-coming comedians.",
+      "verified": true,
+      "rating": 5.0
+    },
+    {
+      "id": 10,
+      "fullName": "Priya Sharma",
+      "stage_name": "Priya Laughs",
+      "email": "priya@example.com",
+      "comedy_specialty": [
+        "Clean Comedy",
+        "Musical Comedy",
+        "Improv"
+      ],
+      "experience_level": "Advanced (5-9 years)",
+      "location": "San Francisco, CA",
+      "bio": "Clean comedy specialist who mixes Bollywood dance routines with stand-up. A crowd-pleaser at corporate events and family-friendly venues across the country.",
+      "verified": true,
+      "rating": 4.7
+    },
+    {
+      "id": 11,
+      "userId": "00001",
+      "fullName": "Carl Shaffer",
+      "stage_name": "Carl Shaffer",
+      "email": "carl.shaffer@example.com",
+      "comedy_specialty": [
+        "Stand-up Comedy",
+        "Observational Comedy"
+      ],
+      "experience_level": "Intermediate (2-4 years)",
+      "location": "Columbus, OH",
+      "bio": "Columbus-based comedian with a sharp observational style and a love of crowd work.",
+      "verified": true,
+      "rating": 4.3
     }
   ],
   "venues": [
